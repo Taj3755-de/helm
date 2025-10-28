@@ -36,7 +36,7 @@ stage('Deploy via Helm on K8s Master') {
 
             echo ">>> Deploying with Helm on Kubernetes..."
             ssh -o StrictHostKeyChecking=no $K8S_MASTER "
-                helm upgrade --install nginx-release /home/rocky/my-nginx-app/helm/nginx \
+                helm upgrade --install nginx-release /home/rocky/my-nginx-app/nginx \
                     --set image.repository=$REGISTRY/$IMAGE_NAME \
                     --set image.tag=latest
             "
