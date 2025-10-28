@@ -27,19 +27,22 @@ pipeline {
             }
         }
 
-        stage('Deploy via Helm on K8s Master') {
-            steps {
-                sshagent(['kube-master-ssh']) {
-                    sh '''
-                    echo ">>> Deploying with Helm on Kubernetes..."
-                    ssh -o StrictHostKeyChecking=no $K8S_MASTER "
-                        helm upgrade --install nginx-release /home/rocky/my-nginx-app/helm/nginx \
-                            --set image.repository=$REGISTRY/$IMAGE_NAME \
-                            --set image.tag=latest
-                    "
-                    '''
-                }
-            }
+stage('Deploy via Helm on K8s Master') {
+    steps {
+        sshagent(['kube-master-ssh']) {
+            sh '''
+            echo ">>> Copying Helm chart to Kubernetes master..."
+            scp -o StrictHostKeyChecking=no -r ./helm rocky@172.31.86.230:/home/rocky/my-nginx-app/
+
+            echo ">>> Deploying with Helm on Kubernetes..."
+            ssh -o StrictHostKeyChecking=no $K8S_MASTER "
+                helm upgrade --install nginx-release /home/rocky/my-nginx-app/helm/nginx \
+                    --set image.repository=$REGISTRY/$IMAGE_NAME \
+                    --set image.tag=latest
+            "
+            '''
         }
+    }
+}
     }
 }
