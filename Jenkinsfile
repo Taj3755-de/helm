@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh '''
                 echo ">>> Building Docker image..."
-                docker build -t $REGISTRY/$IMAGE_NAME:latest .
+                sudo docker build -t $REGISTRY/$IMAGE_NAME:latest .
                 '''
             }
         }
