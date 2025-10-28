@@ -21,7 +21,7 @@ pipeline {
         stage('Scan Docker Image with Trivy') {
             steps {
                 sh '''
-                ./trivy image --severity HIGH,CRITICAL --exit-code 1 --ignore-unfixed $REGISTRY/$IMAGE_NAME:latest || {
+                trivy image --severity HIGH,CRITICAL --exit-code 1 --ignore-unfixed $REGISTRY/$IMAGE_NAME:latest || {
                     echo ">>> Security scan failed: CRITICAL/HIGH vulnerabilities found!"
                     exit 1
                 }
