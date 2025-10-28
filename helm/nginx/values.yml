@@ -1,0 +1,11 @@
+replicaCount: 1
+
+image:
+  repository: 172.31.3.134:5000/nginx-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080
