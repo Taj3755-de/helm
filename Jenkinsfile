@@ -7,7 +7,7 @@ pipeline {
         REPO            = "finacplus/app-01v"
         IMAGE_URI       = "${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPO}"
         K8S_NAMESPACE   = "default"
-        K8S_MASTER      = "rocky@<MASTER-IP>"     // CHANGE THIS
+        K8S_MASTER      = "rocky@172.31.86.230"     // CHANGE THIS
         SSH_CRED        = "kube-master-ssh"       // Jenkins SSH key ID
     }
 
